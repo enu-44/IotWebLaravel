@@ -1,0 +1,37 @@
+{
+    "E-Mail Address": "Email",
+    "Password": "Contraseña",
+    "Remember Me": "Recuerda me",
+    "Login": "Acceder",
+    "Forgot Your Password?": "¿Olvidaste tu contraseña?",
+    "Register": "Registro",
+    "Name": "Nombre",
+    "Full Name": "Nombre Completo",
+    "LastName": "Apellido",
+    "PhoneName": "Telefono",
+    "Address": "Direccion",
+    "Confirm Password": "Confirmar contraseña",
+    "Reset Password": "Reestablecer contraseña",
+    "Send Password Reset Link": "Enviar link para reestablecer contraseña",
+    "Logout": "Cerrar sesión",
+    "Create Account": "Crear Cuenta",
+    "I already have an account": "Ya tengo cuenta",
+    "Hi there! Please Sign in": "¡Hola! Por favor, Ingresa",
+
+
+    "Technology integration": "Integracion de tecnologias",
+
+
+
+
+
+    "You are logged in!": "¡Has iniciado sesión!",
+
+
+
+
+    
+    "View Profile": "Ver perfil",
+    "Update Profile Picture": "Actualizar foto de perfil"
+    
+}
