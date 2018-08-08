@@ -20,6 +20,8 @@ class CreateUnidadProductivasTable extends Migration
             $table->string('description_unidad_productiva');
             $table->string('nit_unidad_productiva')->nullable();
             
+
+            $table->string('coords_ubicacion')->nullable();
             $table->string('direccion_unidad_productiva')->nullable();
             $table->string('path_unidad_productiva')->nullable();
             $table->string('marker')->nullable();
@@ -30,6 +32,9 @@ class CreateUnidadProductivasTable extends Migration
 
             $table->string('ciudad')->nullable();
             $table->string('departamento')->nullable();
+            $table->string('direccion_completa_ciudad')->nullable();
+
+            
 
             $table->bigInteger('proyecto_id')->unsigned()->nullable();
             $table->foreign('proyecto_id')->references('id')->on('proyectos');

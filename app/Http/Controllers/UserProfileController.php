@@ -5,7 +5,7 @@ use App\Http\Requests\ImageProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
-
+use File;
 
 class UserProfileController extends Controller
 {
@@ -29,10 +29,12 @@ class UserProfileController extends Controller
 	{
 		//verificamos el usuario logueado
 		$userLogued = Auth::user();
+        $image_path = $userLogued->path;  // Value is not URL but directory file path
+        if(File::exists($image_path)) {
+            File::delete($image_path);
+        }
 
-
-
-		$path = 'uploads';
+		$path = 'uploads/perfil';
 
 		$files = $request->file('image');
         $filename=uniqid().$files->getClientOriginalName();

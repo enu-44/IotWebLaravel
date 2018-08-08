@@ -66,8 +66,6 @@ class TipoVariableController extends Controller
         return redirect('/tipovariables')->with('eliminado', 'Item eliminado');
 	}
 
-
-
 	//VALIDACIONES
 	/*---------------------------------------------------------------------------------*/
 	protected function validatorPost(array $data)

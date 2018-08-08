@@ -32,10 +32,12 @@
                        <td>
                         <div class="form-inline">
                             <div class="form-group"> 
-                                <button onclick="getId('{{$item->proyecto_id}}')" data-toggle='modal' data-target='#modal' class='btn_edit btn btn-primary btn-icon waves-effect waves-circle waves-float'><i class='zmdi zmdi-edit'></i></button>
+                                <a href="{{url('/editUnidadProducto',['unidadproductiva_id' => Crypt::encrypt($item->id) ])}}" class="btn btn-primary btn-icon waves-effect waves-circle waves-float">
+                                <i class='zmdi zmdi-edit'></i></a>
                             </div>
+                        
                             <div class="form-group">
-                                <form class="mb-2" role="form"  method="POST" action="{{ url('/deleteproyecto') }}"> 
+                                <form class="mb-2" role="form"  method="POST" action="{{ url('/deleteunidadesproductivas') }}"> 
                                     <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
                                     <input type="hidden" id="id" name="id" value="{{$item->id}}">  
                                     <button type="submit" onclick="confirmFunction('eliminar')" class="delete btn btn-danger btn-icon waves-effect waves-circle waves-float">

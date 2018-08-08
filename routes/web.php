@@ -95,7 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
     
 
 
-//ROUTES PROYECTOS
+//ROUTES UNIDAD PRODUCTIVA
 /*---------------------------------------------------------------*/
 Route::group(['middleware' => 'auth'], function () {
    $controller = 'UnidadProductivaController@';
@@ -106,10 +106,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/add_unidad_productiva', ['as' => 'add_unidad_productiva', 'uses' => $controller.'getAddUnidadProductiva']);
 
-    /*Route::post('/unidades_productivas', ['as' => 'unidades_productivas', 'uses' => $controller.'postProyectos']);
+    Route::get('/editUnidadProducto/{unidadproductiva_id}', ['as' => 'edit_unidad_productiva', 'uses' => $controller.'getEditUnidadProductiva']);
 
-    Route::post('/deleteunidadesproductivas', ['as' => 'deleteunidadesproductivas', 'uses' => $controller.'postDeleteUnidadesProductivas']);
-    */
+    Route::post('/unidades_productivas', ['as' => 'unidades_productivas', 'uses' => $controller.'postUnidadesProductivas']);
+
+    Route::post('/deleteunidadesproductivas', ['as' => 'deleteunidadesproductivas', 'uses' => $controller.'postDeleteUnidadProductiva']);
+  
 });
     
 

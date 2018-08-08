@@ -24,7 +24,7 @@
                 <div class="lb-body">
                     <div class="form-group fg-float">
                         <div class="fg-line">
-                            <input type="text" name="name" value="{{ old('name') }}"  class="input-sm form-control fg-input " required>
+                            <input type="text" name="name" value="{{ old('name') }}"  class="input-sm form-control fg-input " >
                             <label class="fg-label">{{ __('Name') }}</label>
                              @if ($errors->has('name'))
                                 <div class="has-error">

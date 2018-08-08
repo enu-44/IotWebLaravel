@@ -9,18 +9,18 @@ $(window).load(function () {
     /* --------------------------------------------------------
         Page Loader
      ---------------------------------------------------------*/
-    if(!$('html').hasClass('ismobile')) {
+    /*if(!$('html').hasClass('ismobile')) {
         if($('.page-loader')[0]) {
             setTimeout (function () {
                 $('.page-loader').fadeOut();
-            }, 500);
+            }, 50);
 
         }
-    }
+    }*/
 })
 
 $(document).ready(function(){
-
+$('.page-loader').fadeOut();
     /* --------------------------------------------------------
         Scrollbar
     ----------------------------------------------------------*/

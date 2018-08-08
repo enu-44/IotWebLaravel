@@ -117,6 +117,29 @@ return [
     |
     */
 
-    'attributes' => [],
+   
+
+
+    'attributes' => [
+        'name' => 'Nombre',
+        'last_name' => 'Apellido',
+        'identificacion' => 'Identificacion',
+        'user_type_id' => 'Tipo Usuario',
+        'department_id' => 'Departamento',
+        'city_id' => 'Ciudad',
+        'zone_id' => 'Zona',
+        'email' => 'Email',
+        'password' => 'Password',
+        'proyecto_id' => 'Proyecto',
+        'referente_id'=>'Referente',
+        'departamento' => 'Departamento',
+        'ciudad' => 'Ciudad',
+        'zona' => 'Zona',
+        'sector' => 'Sector',
+
+
+        'description'=>'Descripcion'
+
+    ],
 
 ];

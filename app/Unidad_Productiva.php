@@ -24,6 +24,7 @@ class Unidad_Productiva extends Model
 	'nit_unidad_productiva',
 	'direccion_unidad_productiva',
 	'path_unidad_productiva',
+	'coords_ubicacion',
 	'marker',
 	'poligono',
 	'rectangulo',
@@ -31,6 +32,7 @@ class Unidad_Productiva extends Model
 	'radius',
 	'ciudad',
 	'departamento',
+	'direccion_completa_ciudad',
 	'proyecto_id',
 	];
 

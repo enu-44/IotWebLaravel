@@ -13,6 +13,8 @@
   </div>
 </div>
 @endsection  
+
+
 @section('footer') 
 <script type="text/javascript">
     $(document).ready(function($){
@@ -20,7 +22,27 @@
       $(".li_menu").addClass('active');
       $(".li_unidadproductiva").addClass('active');
     }); 
-    // This example requires the Drawing library. Include the libraries=drawing
+
+    $("#icon").fileinput({
+        initialPreview: [
+            '<img src="/{{$unidadproductiva->path_unidad_productiva}}" width="300" />'
+        ],
+        showUpload: false,
+        overwriteInitial: true,
+        //uploadUrl: "/file-upload-batch/1",
+        //uploadAsync: false,
+        minFileCount: 0,
+        maxFileCount: 1,
+        //initialPreviewAsData: true, // identify if you are sending preview data only and not the raw markup
+        //initialPreviewFileType: 'image', // image is the default and can be overridden in config below
+        //purifyHtml: true, // this by default purifies HTML data for preview
+    }).on('filesorted', function(e, params) {
+        console.log('File sorted params', params);
+    }).on('fileuploaded', function(e, params) {
+        console.log('File uploaded params', params);
+    });
+     
+     // This example requires the Drawing library. Include the libraries=drawing
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=drawing">
 
@@ -49,6 +71,9 @@
         drawingManager.setMap(map);
       }
 */
+
+
+
 
 ////Funcion para activar mi geolocalizacion
 /*---------------------------------------------------------------------------------------*/
@@ -162,8 +187,8 @@ function activarlocalizacion() {
       postal_code: 'short_name'
     };
 
-      ///Iniciar el mapa
-     /*---------------------------------------------------------------------------------------*/
+  ///Iniciar el mapa
+  /*---------------------------------------------------------------------------------------*/
     function initAutocomplete() {
       contador=0;
       // Create the autocomplete object, restricting the search to geographical
@@ -195,6 +220,7 @@ function activarlocalizacion() {
             dibujarFormasMapa();
             ///Cargar Unidades Productivas Registradas
            // showAllUp();
+           showUp();
            
     }
      /*---------------------------------------------------------------------------------------*/
@@ -453,8 +479,283 @@ function activarlocalizacion() {
     }
      /*---------------------------------------------------------------------------------------*/
 
-    //google.maps.event.addDomListener(window, 'load', initAutocomplete);
+
+
+
+  ///Mostrar unidades productivas georeferenciadas
+  /*---------------------------------------------------------------------------------------*/
+
+  function showUp() {
+
+      var centerUP= "{{$unidadproductiva->coords_ubicacion}}"
+      var ordersplir= centerUP.split(",");
+      ///Se  obtiene la latitud en la posision 0
+      var lat=ordersplir[0];
+      ///Se  obtiene la longitud en la posision 1
+      var lng=ordersplir[1];
+
+      var markerBounds = new google.maps.LatLngBounds();
+
+
+     
+
+
+
+      //map.setCenter(centerUP);
+      //map.setZoom(12);
+
+
+      ///poligono
+      //---------------------------------------------------------------
+      // Define the LatLng coordinates for the polygon.ç
+      var poligono="{{$unidadproductiva->poligono}}";
+      if(poligono==""){
+                    ///toastr.warning("Notificacion: " + "  poligono"+poligono," Mensajeria");      
+      }else{
+        ///Se define un array vacio
+        var poligonoCoords = [];
+        ///Se crea un split apartir de |
+        var splitpoligono= poligono.split("|");
+       
+        ///Se  recorre la variable que contine el split
+        $.each(splitpoligono,function(number){
+          ///Se  halla la posicion de las coordendas
+          var latlongpoli=splitpoligono[number];
+          ///Se  crear un nuevo split para obtener latitud y longitud
+          var ordersplir= latlongpoli.split(",");
+          ///Se  obtiene la latitud en la posision 0
+          var lat=ordersplir[0];
+          ///Se  obtiene la longitud en la posision 1
+          var lng=ordersplir[1];
+          ///Se agregan los datos obtenidos al array del poligono y se parsean a float
+          poligonoCoords.push({lat: parseFloat(lat), lng: parseFloat(lng)});
+
+          var centerUP = new google.maps.LatLng(lat,lng);
+          
+          //map.addOverlay(new GMarker(centerUP));
+          markerBounds.extend(centerUP);
+         
+                              
+        });
+
+        map.setCenter(markerBounds.getCenter());
+        map.fitBounds(markerBounds);
+        // Construccion  del poligono.
+
+        Uppoligono = new google.maps.Polygon({
+          paths: poligonoCoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 3,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+        });
+                   
+                      //////Funcionalidad para no duplicar formas
+      google.maps.event.addListener(Uppoligono, 'map_changed', function() {
+                     //console.log('visible_changed triggered');
+      });
+      Uppoligono.setVisible(false);
+      Uppoligono.setVisible(true);
+      Uppoligono.setMap(map);
+    }
+    //---------------------------------------------------------------
+
+    ////Configuracion de circulos
+    //---------------------------------------------------------------
+    var circulos="{{$unidadproductiva->circulo}}";
+    ///circulos
+    //---------------------------------------------------------------
+    if(circulos==""){
+                     
+    }else{
+
+
+      /// Se crea un split
+      var split= circulos.split(",");
+      var latitude=split[0];
+      var longitude=split[1];
+
+      var radiusUP= "{{$unidadproductiva->radius}}";
+      var radius=parseFloat(radiusUP);
+
+      ///Se obtiene latitud y longitud de cada una pociones
+      center = new google.maps.LatLng(latitude,longitude);
+                  
+      circleUP = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            clickable: true,
+            center: center,
+            radius: radius,
+            editable: false,
+            draggable: false
+        });
+
+        google.maps.event.addListener(circleUP, 'map_changed', function() {
+                          //console.log('visible_changed triggered');
+        });
+        circleUP.setVisible(false);
+        circleUP.setVisible(true);
+        circleUP.setMap(map);
+
+        
+        //map.addOverlay(new GMarker(centerUP));
+        map.fitBounds(circleUP.getBounds());
+
+    }
+    ////Configuracion de rectangulos
+    //---------------------------------------------------------------
+    var rectangulos="{{$unidadproductiva->rectangulo}}";
+    ///Rectangulo
+    //---------------------------------------------------------------
+    if(rectangulos==""){
+                     
+    }else{
+                    /// Se crea un split
+                 var split1= rectangulos.split("|");
+                 
+                 ///Se obtiene las posiciones de NorteEsast y SouthWest
+                  var getNorthEast=split1[0];
+                  var getSouthWest=split1[1];
+                  ///Se obtiene latitud y longitud de cada una pociones
+                  var latlongNorthEast= getNorthEast.split(",");
+                  var norte=parseFloat(latlongNorthEast[0]);
+                  var este=parseFloat(latlongNorthEast[1]);
+
+                  var latlongSouthWest= getSouthWest.split(",");
+                  var sur=parseFloat(latlongSouthWest[0]);
+                  var oeste=parseFloat(latlongSouthWest[1]);
+                  
+                  var boundss = {
+                    north: norte,
+                    south: sur,
+                    east:  este,
+                    west: oeste
+                  };
+                
+                // Definir el rectángulo y establezca su propiedad editable en false.
+                rectangleUP = new google.maps.Rectangle({
+                          bounds: boundss,
+                          editable: false,
+                          draggable: true,
+                          strokeColor: '#FF0000',
+                          strokeOpacity: 0.8,
+                          strokeWeight: 2,
+                          fillColor: '#FF0000',
+                          fillOpacity: 0.35,
+                        });
+
+                
+                google.maps.event.addListener(rectangleUP, 'map_changed', function() {
+                 //console.log('visible_changed triggered');
+                });
+                rectangleUP.setVisible(false);
+                rectangleUP.setVisible(true);
+
+                rectangleUP.setMap(map);
+      }
+
+      ///Marker
+      //---------------------------------------------------------------
+
+
+        var markers="{{$unidadproductiva->marker}}";
+        //var coords = marker.split(",", 2);
+                  var coords= markers.split(",");
+                  var latitud= coords[0];
+                  var longitud= coords[1];
+                  var latLngUP = new google.maps.LatLng(latitud,longitud);
+                  //  bounds.extend(latLng);
+                  //if(bounds.contains(latLng)) {
+                 markerUP = new google.maps.Marker({
+                      position: latLngUP,
+                      map: map,
+                      animation:google.maps.Animation.DROP,
+                      draggable:true,
+                      title: "{{$unidadproductiva->name_unidad_productiva}}"
+                    });
+                google.maps.event.addListener(markerUP, 'map_changed', function() {
+                //console.log('visible_changed triggered');
+                });
+                markerUP.setVisible(false);
+                markerUP.setVisible(true);
+    ///Contenido de Info window
+    //---------------------------------------------------------------
+                 
+                 var imageup="{{$unidadproductiva->path_unidad_productiva}}"
+                ///  console.log(data.image_up);
+                  if(imageup===''){
+                     var windowContent = '<b>Nombre UP:</b>  {{$unidadproductiva->name_unidad_productiva}}<br><b>Proyecto:</b>{{$unidadproductiva->proyecto_id}}<br><b>Coords Ubicacion:</b><br>{{$unidadproductiva->coords_ubicacion}}<br>'+'<a href="#" class="btn btn-link " target="_blank">'+'detalles'+'</a>';
+                 
+                  }else{
+                    var windowContent = '<b>Nombre UP:</b>{{$unidadproductiva->name_unidad_productiva}}<br><b>Proyecto:</b>{{$unidadproductiva->proyecto_id}}<br><b>Coords Ubicacion:</b><br>{{$unidadproductiva->coords_ubicacion}}<br><b>Foto:</b><br><img src="/{{$unidadproductiva->path_unidad_productiva}}" width="150">'+'<br><a href="#" class="btn btn-link" target="_blank">'+'detalles'+'</a>';
+                  }
+               
+          //evento click Marker
+          //---------------------------------------------------------------
+          if(markerUP!=null){
+             var infoWindow=new google.maps.InfoWindow();
+                google.maps.event.addListener(markerUP, 'click', function() {
+                  // Open this map's infobox
+                  infoWindow.open(map, markerUP);
+                  infoWindow.setContent(windowContent);
+                  map.panTo(markerUP.getPosition());
+                  // infoWindow.show();
+                });
+          } 
+          
+
+          //evento click poligono
+          //---------------------------------------------------------------
+          if(Uppoligono!=null){
+            google.maps.event.addListener(Uppoligono, 'click', function(event) {
+                  // Open this map's infobox
+                  infoWindow.open(map);
+                  infoWindow.setContent(windowContent);
+                 // map.panTo(boundspoligono.getCenter());
+                  infoWindow.setPosition(event.latLng);
+                  // infoWindow.show();
+                });
+          }
+                 
+
+          //evento click circle
+          //---------------------------------------------------------------
+           if(circleUP!=null){
+             google.maps.event.addListener(circleUP, 'click', function(event) {
+               
+                  // Open this map's infobox
+                  infoWindow.setContent(windowContent);
+                 // map.panTo(boundspoligono.getCenter());
+                  //infoWindow.setPosition(event.latLng);
+
+                  infoWindow.setPosition(circleUP.getCenter());
+                  infoWindow.open(map);
+                  // infoWindow.show();
+                });
+          }
+                
+          ///Click en el mapa que oculta el infoWindow
+          //---------------------------------------------------------------
+                google.maps.event.addListener(map, 'click', function() {
+                  infoWindow.setMap(null);
+                });
+     
+        
+        //END MARKER DATA
+        // end loop through json
+    }
+
+  /*---------------------------------------------------------------------------------------*/
+  //google.maps.event.addDomListener(window, 'load', initAutocomplete);
 </script>
+
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABpVVe_0GyalUmY4SnuVktfNvSjXo2YJQ&libraries&libraries=places,geometry,drawing&callback=initAutocomplete"
          async defer></script>
+
 @endsection 

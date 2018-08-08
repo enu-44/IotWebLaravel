@@ -46,7 +46,7 @@
     <link href="{{ asset('css/fileinput.min.css') }}" rel="stylesheet"> 
 
 
-     
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABpVVe_0GyalUmY4SnuVktfNvSjXo2YJQ&libraries&libraries=places,geometry,drawing"></script>-->
 
     @endguest
 

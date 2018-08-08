@@ -14004,8 +14004,8 @@ html:not(.ie9) .select.fg-line:before {
 
 
 [data-lbg="gray"] {
-  /*background-color: #607d8b;*/
-  background-image:url("../img/fondo.jpg")
+  background-color: #607d8b;
+  /*background-image:url("../img/fondo.jpg")*/
  /* background-image:url("../img/fondo.jpg");*/
 }
 
