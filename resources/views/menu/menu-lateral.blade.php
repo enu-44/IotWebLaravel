@@ -1,32 +1,24 @@
 <aside id="s-user-alerts" class="sidebar">
-                <ul class="tab-nav tn-justified tn-icon m-t-10" data-tab-color="teal">
-                   
-                    
+                <ul class="tab-nav tn-justified tn-icon m-t-10" data-tab-color="teal"> 
                     <li><a class="sua-notifications" href="#sua-notifications" data-toggle="tab"><i class="zmdi zmdi-notifications"></i></a></li>
-                    
                 </ul>
-
                 <div class="tab-content">
-                    
                     <div class="tab-pane fade" id="sua-notifications">
                         <ul class="sua-menu list-inline list-unstyled palette-Orange bg">
                             <li><a href=""><i class="zmdi zmdi-volume-off"></i> Mute</a></li>
                             <li><a href=""><i class="zmdi zmdi-long-arrow-tab"></i> View all</a></li>
                             <li><a href="" data-ma-action="sidebar-close"><i class="zmdi zmdi-close"></i> Close</a></li>
                         </ul>
-
                         <div class="list-group lg-alt c-overflow">
                             <a href="" class="list-group-item media">
                                 <div class="pull-left">
                                     <img class="avatar-img" src="/img/profile-pics/1.jpg" alt="">
                                 </div>
-
                                 <div class="media-body">
                                     <div class="lgi-heading">David Villa Jacobs</div>
                                     <small class="lgi-text">Sorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis lobortis sapien non posuere</small>
                                 </div>
                             </a>
-
                             <a href="" class="list-group-item media">
                                 <div class="pull-left">
                                     <img class="avatar-img" src="/img/profile-pics/5.jpg" alt="">
@@ -78,11 +70,9 @@
                 </div>
 
                 <ul class="smm-alerts">
-                   
                     <li data-user-alert="sua-notifications" data-ma-action="sidebar-open" data-ma-target="user-alerts">
                         <i class="zmdi zmdi-notifications"></i>
                     </li>
-                  
                 </ul>
 
                 <ul class="main-menu">
@@ -97,29 +87,31 @@
                           
                             <li class="li_tipovariables"><a href="{{ url('tipovariables') }}">Tipo de Variables</a></li>
 
-                            <!--<li class="sub-menu">
-                                <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-accounts"></i> Usuarios</a>
-                                <ul>
-                                    <li><a href="#">Lista de usuarios</a></li>
-                                </ul>
-                            </li>-->
                         </ul>
                     </li>
                     <li class="sub-menu li_menu">
                         <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-grid"></i> Menu</a>
-
                         <ul>
                             <li class="li_proyectos"><a href="{{ url('proyectos') }}"> Proyectos</a></li>
                         
                             <li class="li_unidadproductiva"><a href="{{ url('unidades_productivas') }}">Unidades Productivas</a></li>
 
-                            <li><a href="colored-header.html">Registrar Dispositivos</a></li>
+                            <li class="li_dispositivos"><a href="{{ url('dispositivos') }}">Dispositivos</a></li>
                         </ul>
                     </li>
-                    <li><a href="#"><i class="zmdi zmdi-star-circle"></i> Plan Carrera</a></li>
-                    <li><a href="#"><i class="zmdi zmdi-balance-wallet"></i> Mis Billeteras</a></li>
-                     <li><a href="#"><i class="zmdi zmdi-help"></i> Ayuda</a></li>
-                    
+
+                    <li class="sub-menu li_menu_variables">
+                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-trending-up"></i> Variables</a>
+                        <ul>
+                            <li class="li_configuracion_variable"><a href="#"> Configuracion Variables</a></li>
+                        
+                            <li class="li_medida_variables"><a href="#">Medidas Tiempo Real</a></li>
+                        </ul>
+                    </li>
+                    <li class=" li_menu_historial"><a href="#"><i class="zmdi zmdi-chart"></i>Historial Variables</a></li>
+
+                    <li class="li_menu_mapas"><a href="#"><i class="zmdi zmdi-map"></i> Mapas</a></li>
+                    <li><a href="#"><i class="zmdi zmdi-help"></i> Ayuda</a></li>
                     
                 </ul>
             </aside>

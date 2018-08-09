@@ -113,7 +113,28 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/deleteunidadesproductivas', ['as' => 'deleteunidadesproductivas', 'uses' => $controller.'postDeleteUnidadProductiva']);
   
 });
+   
+
+
+
+//ROUTES DISPOSITIVO
+/*---------------------------------------------------------------*/
+Route::group(['middleware' => 'auth'], function () {
+   $controller = 'DispositivoController@';
     
+    Route::get('/dispositivos', ['as' => 'dispositivos', 'uses' => $controller.'getDispositivos']);
+
+
+
+    Route::get('/add_dispositivos', ['as' => 'add_dispositivos', 'uses' => $controller.'getAddDispositivo']);
+
+    Route::get('/editDispositivo/{dispositivo_id}', ['as' => 'edit_dispositivo', 'uses' => $controller.'getEditDispositivo']);
+
+    Route::post('/dispositivos', ['as' => 'dispositivos', 'uses' => $controller.'postDispositivos']);
+
+    Route::post('/deletedispositivos', ['as' => 'deletedispositivos', 'uses' => $controller.'postDeleteDispositivo']);
+  
+}); 
 
 
 

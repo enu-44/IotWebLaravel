@@ -78,28 +78,6 @@
         } ]*/
     });
     new $.fn.dataTable.FixedHeader(Table);
-
-    $(".btn_edit").click(function(){
-            var data = Table.row( $(this).parents('tr') ).data();
-            $("input[name=name]").val(data[1]);
-            /// $("input[name=name]").trigger("click");
-            $("input[name=id]").val(data[0]);
-            $("textarea[name=description]").val(data[2]);
-            /// alert( data[1] +"'s salary is: "+ data[0] );
-        });
-    }); 
-    
-    $("#btn_add").click(function(){
-        $("input[name=id]").val(0);
-        $("input[name=name]").val('');
-        $("textarea[name=description]").val('');
-        $("select[name=tipo_proyecto_id]").prop('required',true);
     });
-
-    function getId(id){
-      //$("input[name=tipo_proyecto_id_global]").val(id);
-      //$("#tipo_proyecto_id").val(id);
-      //$('#tipo_proyecto_id').val(id).trigger('chosen:updated');
-    }
 </script>
 @endsection 
