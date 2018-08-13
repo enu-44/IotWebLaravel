@@ -103,7 +103,7 @@
                     <li class="sub-menu li_menu_variables">
                         <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-trending-up"></i> Variables</a>
                         <ul>
-                            <li class="li_configuracion_variable"><a href="#"> Configuracion Variables</a></li>
+                            <li class="li_configuracion_variable"><a href="{{ url('configurarvariables') }}"> Configuracion Variables</a></li>
                         
                             <li class="li_medida_variables"><a href="#">Medidas Tiempo Real</a></li>
                         </ul>

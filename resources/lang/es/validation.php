@@ -138,7 +138,11 @@ return [
         'sector' => 'Sector',
 
 
-        'description'=>'Descripcion'
+        'description'=>'Descripcion',
+
+        'unidadproductiva_id'=>'Unidad Productiva',
+        'unidadproductiva_id'=>'Unidad Productiva',
+        'dispositivos_remotos'=>'Dispositivo Remoto',
 
     ],
 

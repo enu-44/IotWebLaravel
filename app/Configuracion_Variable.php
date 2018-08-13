@@ -23,10 +23,15 @@ class Configuracion_Variable extends Model
 	'name_configure',
 	'alias_variable',
 	'dispositivo_id',
+	'tipo_variable_id',
 	];
 
 	
     public function propietarioDispositivo(){
         return $this->belongsTo('App\Dispositivo');
+    }
+
+    public function propietarioTipoVariable(){
+        return $this->belongsTo('App\Tipo_Variable');
     }
 }

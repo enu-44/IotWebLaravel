@@ -741,9 +741,9 @@ function activarlocalizacion() {
                 
           ///Click en el mapa que oculta el infoWindow
           //---------------------------------------------------------------
-                google.maps.event.addListener(map, 'click', function() {
-                  infoWindow.setMap(null);
-                });
+          google.maps.event.addListener(map, 'click', function() {
+              infoWindow.setMap(null);
+          });
      
         
         //END MARKER DATA

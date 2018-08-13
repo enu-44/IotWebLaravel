@@ -49,4 +49,53 @@ class UserProfileController extends Controller
 
 	}
 
+
+
+    public function postUserLoguedBasic(Request $request)
+    {
+        //verificamos el usuario logueado
+        $userLogued = Auth::user();
+
+        $name =$request->get('name');
+        $last_name =$request->get('last_name');
+        $identification =$request->get('identification');
+
+        $userLogued->name=$name;
+        $userLogued->last_name=$last_name;
+        $userLogued->identification=$identification;
+        $userLogued->save();
+
+        
+
+        return redirect("/profile_user");
+    }
+
+
+     public function postUserLoguedContact(Request $request)
+    {
+        //verificamos el usuario logueado
+        $userLogued = Auth::user();
+
+        $address =$request->get('address');
+        $phone =$request->get('phone');
+            
+        $userLogued->phone=$phone;
+        $userLogued->address=$address;
+        $userLogued->save();
+
+        return redirect("/profile_user");
+    }
+
+
+    protected function validatorUpdateInfoBasica(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required', //tamaño maximo de la imagen que se va subir
+            'last_name' => 'required', 
+            'identification' => 'required', 
+        ]);
+    }
+
+   
+
 }

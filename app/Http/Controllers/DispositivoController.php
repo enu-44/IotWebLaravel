@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use File;
+use Illuminate\Support\Facades\Input;
 
 class DispositivoController extends Controller
 {
@@ -47,17 +48,8 @@ class DispositivoController extends Controller
                     ->select('proyectos.id', 'proyectos.name_proyecto', 'proyectos.description_proyecto', 'proyectos.tipo_proyecto_id',
                     'tipo__proyectos.name_tipo_proyecto')
                    ->get();
-
-
-        $unidades_productivas = Unidad_Productiva::join('proyectos', 'proyectos.id', '=', 'unidad__productivas.proyecto_id')
-        ->join('tipo__proyectos', 'tipo__proyectos.id', '=', 'proyectos.tipo_proyecto_id')
-                   ->where('proyectos.user_id', '=', $usuario->id)
-                   ->select('proyectos.name_proyecto', 'proyectos.description_proyecto', 'proyectos.tipo_proyecto_id',
-                    'tipo__proyectos.name_tipo_proyecto','unidad__productivas.id','unidad__productivas.name_unidad_productiva','unidad__productivas.description_unidad_productiva','unidad__productivas.path_unidad_productiva','unidad__productivas.proyecto_id')
-                   ->get();
-
       
-        return view('pages.dispositivos.add_dispositivo',compact("proyectos","tipo_dispositivos",'unidades_productivas'));
+        return view('pages.dispositivos.add_dispositivo',compact("proyectos","tipo_dispositivos"));
     }
 
 
@@ -68,145 +60,119 @@ class DispositivoController extends Controller
         $id = Crypt::decrypt($dispositivo_id);  
         $dispositivo = Dispositivo::find($id);
 
-         $tipo_dispositivos= Tipo_Dispositivo::all();
+        $tipo_dispositivos= Tipo_Dispositivo::all();
 
         $usuario = Auth::user();
-       $proyectos = Proyectos::join('tipo__proyectos', 'tipo__proyectos.id', '=', 'proyectos.tipo_proyecto_id')
+        $proyectos = Proyectos::join('tipo__proyectos', 'tipo__proyectos.id', '=', 'proyectos.tipo_proyecto_id')
                    ->where('proyectos.user_id', '=', $usuario->id)
                     ->select('proyectos.id', 'proyectos.name_proyecto', 'proyectos.description_proyecto', 'proyectos.tipo_proyecto_id',
                     'tipo__proyectos.name_tipo_proyecto')
                    ->get();
 
-
-        $unidades_productivas = Unidad_Productiva::join('proyectos', 'proyectos.id', '=', 'unidad__productivas.proyecto_id')
-        ->join('tipo__proyectos', 'tipo__proyectos.id', '=', 'proyectos.tipo_proyecto_id')
-                   ->where('proyectos.user_id', '=', $usuario->id)
-                   ->select('proyectos.name_proyecto', 'proyectos.description_proyecto', 'proyectos.tipo_proyecto_id',
-                    'tipo__proyectos.name_tipo_proyecto','unidad__productivas.id','unidad__productivas.name_unidad_productiva','unidad__productivas.description_unidad_productiva','unidad__productivas.path_unidad_productiva','unidad__productivas.proyecto_id')
-                   ->get();
-
-       
+        $dispositivo_join = Dispositivo::join('unidad__productivas', 'unidad__productivas.id', '=', 'dispositivos.unidad_productiva_id')
+                ->join('proyectos', 'proyectos.id', '=', 'unidad__productivas.proyecto_id')
+                ->where('dispositivos.id', '=', $dispositivo->id)
+                ->select('proyectos.name_proyecto', 'proyectos.description_proyecto', 'proyectos.tipo_proyecto_id','unidad__productivas.id','unidad__productivas.name_unidad_productiva','unidad__productivas.proyecto_id')
+                ->first();
 
 
-        return view('pages.dispositivos.edit_dispositivo',compact("proyectos","dispositivo","tipo_dispositivos",'unidades_productivas'));
+        return view('pages.dispositivos.edit_dispositivo',compact("proyectos","dispositivo","tipo_dispositivos",'dispositivo_join'));
     }
 
-
-
     //metodo que se ejecuta para crear el perfil
-    public function postDispositivo(Request $request)
+    public function postDispositivos(Request $request)
     {
         //verificamos el usuario logueado
         $userLogued = Auth::user();
+
         $id =$request->get('id');
-        $proyecto_id =$request->get('proyecto_id');
+        $dispositivos_remotos =$request->get('dispositivos_remotos');
+        $mac =$request->get('mac');
+        $marca =$request->get('marca');
+        $cellular =$request->get('cellular');
+        $connected =$request->get('connected');
+        $current_build_target =$request->get('current_build_target');
+        $id_externo =$request->get('id_externo');
+        $imei =$request->get('imei');
+        $last_app =$request->get('last_app');
+
+        $last_heard =$request->get('last_heard');
+        $last_iccid =$request->get('last_iccid');
+        $last_ip_address =$request->get('last_ip_address');
         $name =$request->get('name');
-        $ubicacion_unidad_productiva =$request->get('ubicacion_unidad_productiva');
-        $nit =$request->get('nit');
-        $direccion =$request->get('direccion');
-        $description =$request->get('description');
-        $ciudad_residencia =$request->get('ciudad_residencia');
-        $estado_residencia =$request->get('estado_residencia');
-        $direccioncompleta =$request->get('direccioncompleta');
+        $platform_id =$request->get('platform_id');
+        $product_id =$request->get('product_id');
 
-        $ubicacion =$request->get('ubicacion_unidad_productiva');
-        $coordsMarker =$request->get('coordsMarker');
-        $coordsPoligono =$request->get('coordsPoligono');
-        $getRadius =$request->get('getRadius');
-        $getCorrdenadasCirculo =$request->get('getCorrdenadasCirculo');
-        $getNorthEastRectangulo =$request->get('getNorthEastRectangulo');
-        $getSouthWestRectangulo =$request->get('getSouthWestRectangulo');
+        $status =$request->get('status');
+        $coords_dispositivo =$request->get('coords_dispositivo');
+        $descripcion_dispositivo =$request->get('descripcion_dispositivo');
 
-        $path = 'uploads/unidades_productivas';
+        $unidadproductiva_id =$request->get('unidadproductiva_id');
+        $tipo_dispositivo_id =$request->get('tipo_dispositivo_id');
+        $dispositivos_remotos =$request->get('dispositivos_remotos');
+
+        
+
+        
 
         //UPDATE
         if($id>0){
             $this->validatorUpdate($request->all())->validate();
-            $unidad_productiva = Unidad_Productiva::find($id);
-            $ruta=$unidad_productiva->path_unidad_productiva;
+            $dispositivo = Dispositivo::find($id);
+                    
+            $dispositivo->coords_dispositivo=$coords_dispositivo;
+            $dispositivo->mac=$mac;
+            $dispositivo->marca=$marca;
+            $dispositivo->descripcion_dispositivo=$descripcion_dispositivo;
 
-            if($request->hasFile('icon'))
-            {
-               
-                $image_path=  $unidad_productiva->path_unidad_productiva;
-                if(!$image_path=="img/unidad_productiva_empty.png"){
-                    if(File::exists($image_path)) {
-                    File::delete($image_path);
-                    } 
-                }
+            $dispositivo->cellular=$cellular;
+            $dispositivo->connected=$connected;
+            $dispositivo->current_build_target=$current_build_target;
+            $dispositivo->id_externo=$id_externo;
+            $dispositivo->imei=$imei;
+            $dispositivo->last_app=$last_app;
+            $dispositivo->last_heard=$last_heard;
+            $dispositivo->last_iccid=$last_iccid;
+            $dispositivo->last_ip_address=$last_ip_address;
+            $dispositivo->name=$name;
+            $dispositivo->platform_id=$platform_id;
+            $dispositivo->product_id=$product_id;
+            $dispositivo->status=$status;
+            $dispositivo->tipo_dispositivo_id=$tipo_dispositivo_id;
+            $dispositivo->unidad_productiva_id=$unidadproductiva_id;
+            $dispositivo->dispositivo_id=$dispositivos_remotos;
 
-                $files = $request->file('icon');
-                $filename=sha1(Carbon::now()).uniqid().$files->getClientOriginalName();
-                $ruta=$path."/".$filename;
-                $files->move($path,$filename);
-                $unidad_productiva->path_unidad_productiva=$ruta;
-            }
-            
-            $retangulo="";
-            if($getNorthEastRectangulo!=null && $getSouthWestRectangulo!=null){
-                $retangulo=$getNorthEastRectangulo."|".$getSouthWestRectangulo;
-            }
-            
-            $unidad_productiva->name_unidad_productiva=$name;
-            $unidad_productiva->description_unidad_productiva=$description;
-            $unidad_productiva->nit_unidad_productiva=$nit;
-            $unidad_productiva->direccion_unidad_productiva=$direccion;
-
-            $unidad_productiva->marker=$coordsMarker;
-            $unidad_productiva->poligono=$coordsPoligono;
-            $unidad_productiva->rectangulo=$retangulo;
-            $unidad_productiva->circulo=$getCorrdenadasCirculo;
-            $unidad_productiva->radius=$getRadius;
-            $unidad_productiva->ciudad=$ciudad_residencia;
-            $unidad_productiva->departamento=$estado_residencia;
-            $unidad_productiva->direccion_completa_ciudad=$direccioncompleta;
-            $unidad_productiva->proyecto_id=$proyecto_id;
-            $unidad_productiva->coords_ubicacion=$ubicacion;
-            
-            $unidad_productiva->save();
+            $dispositivo->save();
 
         //POST
         }else{
         
             $this->validatorPost($request->all())->validate();
-            $ruta="";
-            $retangulo="";
-            if($request->hasFile('icon'))
-            {
-                $files = $request->file('icon');
-                $filename=sha1(Carbon::now()).uniqid().$files->getClientOriginalName();
-                $ruta=$path."/".$filename;
-                $files->move($path,$filename);
-            }else{
-                 $ruta="img/unidad_productiva_empty.png";
-            }
+            Dispositivo::create([
+                'coords_dispositivo' => $coords_dispositivo,
+                'mac' => $mac,
+                'marca' => $marca,
+                'descripcion_dispositivo' => $descripcion_dispositivo,
+                'cellular' => $cellular,
+                'connected' => $connected,
+                'id_externo' => $id_externo,
+                'imei' => $imei,
+                'last_app' => $last_app,
+                'last_heard' => $last_heard,
+                'last_iccid' => $last_iccid,
+                'last_ip_address' => $last_ip_address,
+                'platform_id' => $platform_id,
+                'product_id' => $product_id,
+                'status' => $status,
 
-            
-            if($getNorthEastRectangulo!=null && $getSouthWestRectangulo!=null){
-                $retangulo=$getNorthEastRectangulo."|".$getSouthWestRectangulo;
-            }
-          
-        
-            Unidad_Productiva::create([
-                'name_unidad_productiva' => $name,
-                'description_unidad_productiva' => $description,
-                'nit_unidad_productiva' => $nit,
-                'direccion_unidad_productiva' => $direccion,
-                'path_unidad_productiva' => $ruta,
-                'coords_ubicacion' => $ubicacion,
-                'marker' => $coordsMarker,
-                'poligono' => $coordsPoligono,
-                'rectangulo' => $retangulo,
-                'circulo' => $getCorrdenadasCirculo,
-                'radius' => $getRadius,
-                'ciudad' => $ciudad_residencia,
-                'departamento' => $estado_residencia,
-                'direccion_completa_ciudad' => $direccioncompleta,
-                'proyecto_id' => $proyecto_id,
+                'name' => $name,
+                'tipo_dispositivo_id' => $tipo_dispositivo_id,
+                'unidad_productiva_id' => $unidadproductiva_id,
+                'dispositivo_id' => $dispositivos_remotos,
                
             ]);
         }
-        return redirect('/unidades_productivas')->with('agregado', 'Item  guardado');
+        return redirect('/dispositivos')->with('agregado', 'Item  guardado');
     }
 
 
@@ -215,12 +181,12 @@ class DispositivoController extends Controller
         //verificamos la unidad productiva
         $dispositivo_id =$request->get('id');
         $this->validatorDelete($request->all())->validate();
-
-
         $dispositivo = Dispositivo::find($dispositivo_id);
         $dispositivo->delete();
         return redirect('/dispositivos')->with('eliminado', 'Item eliminado');
     }
+
+
 
     //VALIDACIONES
     /*---------------------------------------------------------------------------------*/
@@ -231,7 +197,8 @@ class DispositivoController extends Controller
             'id_externo' => 'required', 
             'name' => 'required', 
             'tipo_dispositivo_id' => 'required', 
-            'unidad_productiva_id' => 'required', 
+            'unidadproductiva_id' => 'required', 
+            'dispositivos_remotos'=>'required',
         ]);
     }
 
@@ -242,7 +209,7 @@ class DispositivoController extends Controller
             'id_externo' => 'required', 
             'name' => 'required', 
             'tipo_dispositivo_id' => 'required', 
-            'unidad_productiva_id' => 'required', 
+            'unidadproductiva_id' => 'required', 
         ]);
     }
 

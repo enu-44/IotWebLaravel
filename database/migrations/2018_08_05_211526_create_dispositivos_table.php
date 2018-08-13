@@ -33,6 +33,9 @@ class CreateDispositivosTable extends Migration
             $table->string('platform_id')->nullable();
             $table->string('product_id')->nullable();
             $table->string('status')->nullable();
+            $table->string('dispositivo_id')->nullable();
+
+            
 
             $table->bigInteger('tipo_dispositivo_id')->unsigned();
             $table->foreign('tipo_dispositivo_id')->references('id')->on('tipo__dispositivos');

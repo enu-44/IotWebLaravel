@@ -38,6 +38,7 @@ class Dispositivo extends Model
     'status',
     'tipo_dispositivo_id',
     'unidad_productiva_id',
+    'dispositivo_id',
 	];
 
 	public function HasManyConfigurationVariables(){

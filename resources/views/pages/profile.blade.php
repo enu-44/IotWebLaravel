@@ -40,8 +40,8 @@
 
 
                     <div class="pmo-stat">
-                        <h2 class="m-0 c-white">1562</h2>
-                        Total Connections
+                        <h2 class="m-0 c-white"></h2>
+                        IOT 
                     </div>
                 </div>
 
@@ -61,63 +61,20 @@
                     </ul>
                 </div>
 
-                <div class="pmo-block pmo-items hidden-xs">
-                    <h2>Connections</h2>
-
-                    <div class="pmob-body">
-                        <div class="row">
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/1.jpg" alt="">
-                            </a>
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/2.jpg" alt="">
-                            </a>
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/3.jpg" alt="">
-                            </a>
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/4.jpg" alt="">
-                            </a>
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/5.jpg" alt="">
-                            </a>
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/6.jpg" alt="">
-                            </a>
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/7.jpg" alt="">
-                            </a>
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/8.jpg" alt="">
-                            </a>
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/1.jpg" alt="">
-                            </a>
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/2.jpg" alt="">
-                            </a>
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/3.jpg" alt="">
-                            </a>
-                            <a href="" class="col-xs-2">
-                                <img class="img-circle" src="img/profile-pics/4.jpg" alt="">
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
 
             <div class="pm-body clearfix">
                 <ul class="tab-nav tn-justified">
-                    <li class="active waves-effect"><a href="profile-about.html">About</a></li>
-                    <li class="waves-effect"><a href="profile-photos.html">Photos</a></li>
-                    <li class="waves-effect"><a href="profile-connections.html">Connections</a></li>
+                    <li class="active waves-effect"><a href="profile-about.html">Perfil</a></li>
+                    <!--<li class="waves-effect"><a href="profile-photos.html">Photos</a></li>
+                    <li class="waves-effect"><a href="profile-connections.html">Connections</a></li>-->
                 </ul>
 
 
                 <div class="pmb-block">
                     <div class="pmbb-header">
-                        <h2><i class="zmdi zmdi-equalizer m-r-5"></i> Summary</h2>
+                        <h2><i class="zmdi zmdi-account m-r-5"></i> Informacion Basica</h2>
 
                         <ul class="actions">
                             <li class="dropdown">
@@ -127,42 +84,7 @@
 
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
-                                        <a data-pmb-action="edit" href="">Edit</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="pmbb-body p-l-30">
-                        <div class="pmbb-view">
-                            Sed eu est vulputate
-                        </div>
-
-                        <div class="pmbb-edit">
-                            <div class="fg-line">
-                                <textarea class="form-control" rows="5" placeholder="Summary...">Sed eu est vulputate</textarea>
-                            </div>
-                            <div class="m-t-10">
-                                <button class="btn btn-primary btn-sm">Save</button>
-                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pmb-block">
-                    <div class="pmbb-header">
-                        <h2><i class="zmdi zmdi-account m-r-5"></i> Basic Information</h2>
-
-                        <ul class="actions">
-                            <li class="dropdown">
-                                <a href="" data-toggle="dropdown">
-                                    <i class="zmdi zmdi-more-vert"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li>
-                                        <a data-pmb-action="edit" href="">Edit</a>
+                                        <a data-pmb-action="edit" href="">Editar</a>
                                     </li>
                                 </ul>
                             </li>
@@ -171,13 +93,17 @@
                     <div class="pmbb-body p-l-30">
                         <div class="pmbb-view">
                             <dl class="dl-horizontal">
-                                <dt>Full Name</dt>
+                                <dt>Nombre Completo</dt>
                                 <dd>{{ Auth::user()->name }}  {{ Auth::user()->last_name }} </dd>
                             </dl>
                             <!--<dl class="dl-horizontal">
                                 <dt>Gender</dt>
                                 <dd>Female</dd>
                             </dl>-->
+                            <dl class="dl-horizontal">
+                                <dt>Identificacion</dt>
+                                <dd>{{ Auth::user()->identification }} </dd>
+                            </dl>
                             <dl class="dl-horizontal">
                                 <dt>Fecha Registro</dt>
                                 <dd>{{ Auth::user()->created_at }} </dd>
@@ -189,52 +115,44 @@
                         </div>
 
                         <div class="pmbb-edit">
+                            <form  role="form" method="POST" action="{{ url('/update_info_basic')}}">
+                            @csrf
                             <dl class="dl-horizontal">
-                                <dt class="p-t-10">Full Name</dt>
+                                <dt class="p-t-10">Nombre</dt>
+                                <dd>
+                                    <div class="fg-line"> 
+                                        <input type="text" name="name" class="form-control" value="{{ Auth::user()->name }}" placeholder="Nombre">
+                                    </div>
+
+                                </dd>
+
+                                
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt class="p-t-10">Apellido</dt>
                                 <dd>
                                     <div class="fg-line">
-                                        <input type="text" class="form-control" placeholder="eg. Mallinda Hollaway">
+                                        <input type="text" name="last_name" class="form-control" value="{{ Auth::user()->last_name }}" placeholder="Apellido">
                                     </div>
 
                                 </dd>
                             </dl>
                             <dl class="dl-horizontal">
-                                <dt class="p-t-10">Gender</dt>
+                                <dt class="p-t-10">Identificcion</dt>
                                 <dd>
                                     <div class="fg-line">
-                                        <select class="form-control">
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                            <option>Other</option>
-                                        </select>
+                                        <input type="text" name="identification" class="form-control" value="{{ Auth::user()->identification }}" placeholder="Identificacion">
                                     </div>
-                                </dd>
-                            </dl>
-                            <dl class="dl-horizontal">
-                                <dt class="p-t-10">Birthday</dt>
-                                <dd>
-                                    <div class="dtp-container dropdown fg-line">
-                                        <input type='text' class="form-control date-picker" data-toggle="dropdown" placeholder="Click here...">
-                                    </div>
-                                </dd>
-                            </dl>
-                            <dl class="dl-horizontal">
-                                <dt class="p-t-10">Martial Status</dt>
-                                <dd>
-                                    <div class="fg-line">
-                                        <select class="form-control">
-                                            <option>Single</option>
-                                            <option>Married</option>
-                                            <option>Other</option>
-                                        </select>
-                                    </div>
+
                                 </dd>
                             </dl>
 
                             <div class="m-t-30">
-                                <button class="btn btn-primary btn-sm">Save</button>
-                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
+                                <button data-pmb-action="reset" class="btn btn-danger btn-sm">Cancelar</button>
                             </div>
+                            </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -242,7 +160,7 @@
 
                 <div class="pmb-block">
                     <div class="pmbb-header">
-                        <h2><i class="zmdi zmdi-phone m-r-5"></i> Contact Information</h2>
+                        <h2><i class="zmdi zmdi-phone m-r-5"></i> Informacion de contacto</h2>
 
                         <ul class="actions">
                             <li class="dropdown">
@@ -252,7 +170,7 @@
 
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
-                                        <a data-pmb-action="edit" href="">Edit</a>
+                                        <a data-pmb-action="edit" href="">Editar</a>
                                     </li>
                                 </ul>
                             </li>
@@ -261,61 +179,54 @@
                     <div class="pmbb-body p-l-30">
                         <div class="pmbb-view">
                             <dl class="dl-horizontal">
-                                <dt>Mobile Phone</dt>
+                                <dt>Direccion</dt>
+                                <dd>{{ Auth::user()->address }}</dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Telefono</dt>
                                 <dd>{{ Auth::user()->phone }}</dd>
                             </dl>
                             <dl class="dl-horizontal">
-                                <dt>Email Address</dt>
+                                <dt>Email</dt>
                                 <dd>{{ Auth::user()->email }}</dd>
                             </dl>
-                            <dl class="dl-horizontal">
-                                <dt>Twitter</dt>
-                                <dd>@malinda</dd>
-                            </dl>
-                            <dl class="dl-horizontal">
-                                <dt>Skype</dt>
-                                <dd>malinda.hollaway</dd>
-                            </dl>
+                           
                         </div>
 
                         <div class="pmbb-edit">
-                            <dl class="dl-horizontal">
-                                <dt class="p-t-10">Mobile Phone</dt>
+                            <form  role="form" method="POST" action="{{ url('/update_info_contact')}}">
+                            @csrf
+                             <dl class="dl-horizontal">
+                                <dt class="p-t-10">Direccion</dt>
                                 <dd>
                                     <div class="fg-line">
-                                        <input type="text" class="form-control" placeholder="eg. 00971 12345678 9">
+                                        <input type="text" name="address" value="{{ Auth::user()->address }}" class="form-control" placeholder="Direccion">
                                     </div>
                                 </dd>
                             </dl>
                             <dl class="dl-horizontal">
-                                <dt class="p-t-10">Email Address</dt>
+                                <dt class="p-t-10">Telefono</dt>
                                 <dd>
                                     <div class="fg-line">
-                                        <input type="email" class="form-control" placeholder="eg. malinda.h@gmail.com">
+                                        <input type="text" name="phone" value="{{ Auth::user()->phone }}" class="form-control" placeholder="Telefono">
                                     </div>
                                 </dd>
                             </dl>
                             <dl class="dl-horizontal">
-                                <dt class="p-t-10">Twitter</dt>
+                                <dt class="p-t-10">Email</dt>
                                 <dd>
                                     <div class="fg-line">
-                                        <input type="text" class="form-control" placeholder="eg. @malinda">
+                                        <input type="email" class="form-control" value="{{ Auth::user()->email }}" placeholder="Email" disabled="disabled">
                                     </div>
                                 </dd>
                             </dl>
-                            <dl class="dl-horizontal">
-                                <dt class="p-t-10">Skype</dt>
-                                <dd>
-                                    <div class="fg-line">
-                                        <input type="text" class="form-control" placeholder="eg. malinda.hollaway">
-                                    </div>
-                                </dd>
-                            </dl>
+                           
 
                             <div class="m-t-30">
-                                <button class="btn btn-primary btn-sm">Save</button>
-                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                                <button data-pmb-action="reset" class="btn btn-danger btn-sm">Cancel</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>

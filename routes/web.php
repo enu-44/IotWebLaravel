@@ -27,6 +27,10 @@ Route::group(['profile' => 'profile','as'=>'profile.'], function(){
     Route::get('/profile_user', ['as' => 'profile', 'uses' => $controller.'getProfile']);
 
     Route::post('/update_profile', ['as' => 'update_profile', 'uses' => $controller.'postChangeImageProfile']);
+
+    Route::post('/update_info_basic', ['as' => 'update_info_basic', 'uses' => $controller.'postUserLoguedBasic']);
+
+    Route::post('/update_info_contact', ['as' => 'update_info_contact', 'uses' => $controller.'postUserLoguedContact']);
    // Route::get('reser', ['uses' => $controller.'getIndex', 'as' => 'reservas']);
 });
 
@@ -124,8 +128,6 @@ Route::group(['middleware' => 'auth'], function () {
     
     Route::get('/dispositivos', ['as' => 'dispositivos', 'uses' => $controller.'getDispositivos']);
 
-
-
     Route::get('/add_dispositivos', ['as' => 'add_dispositivos', 'uses' => $controller.'getAddDispositivo']);
 
     Route::get('/editDispositivo/{dispositivo_id}', ['as' => 'edit_dispositivo', 'uses' => $controller.'getEditDispositivo']);
@@ -133,8 +135,50 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/dispositivos', ['as' => 'dispositivos', 'uses' => $controller.'postDispositivos']);
 
     Route::post('/deletedispositivos', ['as' => 'deletedispositivos', 'uses' => $controller.'postDeleteDispositivo']);
+
+}); 
+
+
+
+
+//ROUTES CONFIGURE VARIABLES
+/*---------------------------------------------------------------*/
+Route::group(['middleware' => 'auth'], function () {
+   $controller = 'ConfigurarVariablesController@';
+    
+    Route::get('/configurarvariables', ['as' => 'configurarvariables', 'uses' => $controller.'getConfiguracionVariable']);
+
+    Route::get('/add_configuracion_variables', ['as' => 'add_configuracion_variables', 'uses' => $controller.'getAddConfiguracionVariable']);
+
+     Route::get('/editConfiguracionVariable/{configuracion_variable_id}', ['as' => 'edit_configuracion_variable', 'uses' => $controller.'getEditConfiguracionVariable']);
+
+    Route::post('/configurarvariables', ['as' => 'configurarvariables', 'uses' => $controller.'postConfiguracionVariable']);
+
+
+
+    Route::post('/deleteconfiguracionvariable', ['as' => 'deletetipovariable', 'uses' => $controller.'postDeleteConfiguracionVariable']);
   
 }); 
+
+
+
+
+
+//ROUTES GET LIST AJAX
+/*---------------------------------------------------------------*/
+Route::group(['middleware' => 'auth'], function () {
+   $controller = 'AjaxController@';
+    
+    Route::post('/up_by_proyecto', ['as' => 'unidades_productivas', 'uses' => $controller.'postUnidadesproductivasByProyecto']);
+
+    Route::post('/dispositivos_by_up', ['as' => 'unidades_productivas', 'uses' => $controller.'postDispositivosByIdUp']);
+
+    Route::post('/up_by_id', ['as' => 'unidades_productivas', 'uses' => $controller.'postUnidadesproductivasById']);
+
+    Route::post('/dispositivo_by_id', ['as' => 'dispositivos', 'uses' => $controller.'postDispositivoById']);
+}); 
+
+
 
 
 
