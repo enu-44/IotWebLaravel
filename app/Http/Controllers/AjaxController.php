@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Configuracion_Variable;
 use App\Tipo_Dispositivo;
 use App\Tipo_Proyecto;
 use App\Proyectos;
@@ -57,6 +57,20 @@ class AjaxController extends Controller
 
         $arr['success'] = true;
         $arr['dispositivos'] =  $dispositivos;
+        return json_encode($arr);
+    }
+
+    //get list configuracion de variables
+    public function postConfVariableByIdExternoDispositivo()
+    {
+        $dispositivo_id = Input::get('dispositivo_id');
+        $variables_configuradas=Configuracion_Variable::join('dispositivos', 'dispositivos.id', '=', 'configuracion__variables.dispositivo_id')
+            ->join('tipo__variables', 'tipo__variables.id', '=', 'configuracion__variables.tipo_variable_id')
+                    ->where('configuracion__variables.dispositivo_id', '=', $dispositivo_id)
+                    ->get();
+
+        $arr['success'] = true;
+        $arr['variables_configuradas'] =  $variables_configuradas;
         return json_encode($arr);
     }
 

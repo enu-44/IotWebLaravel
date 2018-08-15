@@ -10,7 +10,7 @@
                             <li><a href="" data-ma-action="sidebar-close"><i class="zmdi zmdi-close"></i> Close</a></li>
                         </ul>
                         <div class="list-group lg-alt c-overflow">
-                            <a href="" class="list-group-item media">
+                            <!--<a href="" class="list-group-item media">
                                 <div class="pull-left">
                                     <img class="avatar-img" src="/img/profile-pics/1.jpg" alt="">
                                 </div>
@@ -57,7 +57,7 @@
                                     <div class="lgi-heading">Rudolph Perez</div>
                                     <small class="lgi-text">Phasellus a ullamcorper lectus, sit amet viverra quam. In luctus tortor vel nulla pharetra bibendum</small>
                                 </div>
-                            </a>
+                            </a>-->
                         </div>
                     </div>
                     
@@ -79,6 +79,8 @@
                     <li class="active home">
                         <a href="/"><i class="zmdi zmdi-home"></i> Home</a>
                     </li>
+                    
+                    @if (Auth::user()->is_admin)
                     <li class="sub-menu li_administrador">
                         <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-widgets"></i> Administrador</a>
                         <ul>
@@ -89,6 +91,8 @@
 
                         </ul>
                     </li>
+                    @endif
+                  
                     <li class="sub-menu li_menu">
                         <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-grid"></i> Menu</a>
                         <ul>
@@ -105,12 +109,13 @@
                         <ul>
                             <li class="li_configuracion_variable"><a href="{{ url('configurarvariables') }}"> Configuracion Variables</a></li>
                         
-                            <li class="li_medida_variables"><a href="#">Medidas Tiempo Real</a></li>
+                            <li class="li_medida_variables"><a href="{{ url('variables_real_time') }}">Medidas Tiempo Real</a></li>
                         </ul>
                     </li>
-                    <li class=" li_menu_historial"><a href="#"><i class="zmdi zmdi-chart"></i>Historial Variables</a></li>
+                    
+                    <li class=" li_menu_historial"><a href="{{ url('historial_variables') }}"><i class="zmdi zmdi-chart"></i>Historial Variables</a></li>
 
-                    <li class="li_menu_mapas"><a href="#"><i class="zmdi zmdi-map"></i> Mapas</a></li>
+                    <li class="li_menu_mapas"><a href="{{ url('report_mapa') }}"><i class="zmdi zmdi-map"></i> Mapas</a></li>
                     <li><a href="#"><i class="zmdi zmdi-help"></i> Ayuda</a></li>
                     
                 </ul>

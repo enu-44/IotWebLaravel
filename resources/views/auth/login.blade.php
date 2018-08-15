@@ -3,7 +3,7 @@
 @section('content')
 <!-- Login -->
 <div class="l-block toggled" id="l-login">
-                <div class="lb-header palette-Brown-800 bg">
+                <div class="lb-header palette-Blue-800 bg">
                     <i class="zmdi zmdi-account-circle"></i>
                 {{ __('Hi there! Please Sign in') }}
                 </div>

@@ -75,9 +75,6 @@
                             <a data-action="clear-localstorage" href=""><i class="zmdi zmdi-delete"></i> Clear Local Storage</a>
                         </li>
                         <li>
-                            <a href=""><i class="zmdi zmdi-face"></i> Privacy Settings</a>
-                        </li>
-                        <li>
                             <a href=""><i class="zmdi zmdi-settings"></i> Other Settings</a>
                         </li>
                     </ul>
@@ -99,9 +96,7 @@
                         <li>
                             <a href="{{ url('/profile_user') }}"><i class="zmdi zmdi-account"></i> {{ __('View Profile') }} </a>
                         </li>
-                        <li>
-                            <a href=""><i class="zmdi zmdi-input-antenna"></i> Privacy Settings</a>
-                        </li>
+                      
                         <!--<li>
                             <a href=""><i class="zmdi zmdi-settings"></i> Settings</a>
                         </li>-->
@@ -119,7 +114,7 @@
             
             <div class="media-body h-search">
                 <form class="p-relative">
-                    <input type="text" class="hs-input" placeholder="Search for people, files & reports">
+                    <input type="text" class="hs-input" placeholder="Buscar">
                     <i class="zmdi zmdi-search hs-reset" data-ma-action="search-clear"></i>
                 </form>
             </div>

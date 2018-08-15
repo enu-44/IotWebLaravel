@@ -1,5 +1,5 @@
 <footer id="footer">
-    Copyright &copy; 2018 {{ config('app.name') }}
+    Copyright &copy; 2018 <a target="_BLANK" href="http://themakers.com.co">themakers.com.co</a> {{ config('app.name') }}
 
                 <ul class="f-menu">
                     <li><a href="">Home</a></li>

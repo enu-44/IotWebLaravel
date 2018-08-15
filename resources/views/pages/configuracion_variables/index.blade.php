@@ -26,7 +26,7 @@
                        <td>{{$item->id}}</td>
                        <td>{{$item->name_configure}}</td>
                        <td>{{$item->alias_variable}}</td>
-                       <td>{{$item->name_tipo_dispositivos}}</td>
+                       <td>{{$item->name_tipo_dispositivos}} ({{$item->name_dispositivo}})</td>
                        <td>{{$item->name_proyecto}}</td>
                        <td>{{$item->name_unidad_productiva}}</td>
                        <td>

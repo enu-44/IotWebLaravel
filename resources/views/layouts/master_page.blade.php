@@ -20,6 +20,12 @@
     <!--Selects-->
     <link href="{{ asset('vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/bower_components/chosen/chosen.min.css') }}" rel="stylesheet">
+
+    <!-- bootstrap datepicker 
+    <link href="{{ asset('vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">-->
+
+     <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="{{ asset('plugins/datepicker/datepicker3.css') }}">
      
      <!--Palete Colors-->
     <link href="{{ asset('vendors/bower_components/google-material-color/dist/palette.css') }}" rel="stylesheet">
@@ -27,6 +33,9 @@
     <!-- CSS -->
     <link href="{{ asset('css/app.min.1.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.min.2.css') }}" rel="stylesheet"> 
+
+   
+
 
 
     @guest
@@ -42,9 +51,12 @@
 
     <link href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css" rel="stylesheet" type="text/css">
 
+    <link href="{{ asset('css/tables/buttons.dataTables.min.css') }}" rel="stylesheet">
+
     <!--Library Input Image-->
     <link href="{{ asset('css/fileinput.min.css') }}" rel="stylesheet"> 
 
+   
 
     <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABpVVe_0GyalUmY4SnuVktfNvSjXo2YJQ&libraries&libraries=places,geometry,drawing"></script>-->
 
@@ -52,7 +64,7 @@
 
 </head>
 @auth
-<body data-ma-header="brown">
+<body data-ma-header="blue">
 @else
 <body>
 @endauth
@@ -70,7 +82,7 @@
             @include('footer.footer')
         </section>
         <!-- Page Loader -->
-        <div class="page-loader  palette-Brown-400 bg">
+        <div class="page-loader  palette-blue-400 bg">
             <div class="preloader pl-xl pls-white">
                 <svg class="pl-circular" viewBox="25 25 50 50">
                     <circle class="plc-path" cx="50" cy="50" r="20"/>
@@ -78,7 +90,7 @@
             </div>
         </div>
     @else
-        <div class="login" data-lbg="grown">
+        <div class="login" data-lbg="blue">
             @yield('content')
         </div>
     @endauth
@@ -104,6 +116,9 @@
         <script src="{{ URL::asset('vendors/bower_components/chosen/chosen.jquery.min.js') }}"></script>
 
 
+
+
+
        
         <script src="{{ URL::asset('vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.min.js') }}"></script>
 
@@ -119,13 +134,6 @@
 
         <script src="{{ URL::asset('vendors/input-mask/input-mask.min.js') }}"></script>
 
-
-
-
-
-
-
-
         <!-- Placeholder for IE9 -->
             <!--[if IE 9 ]>
             <script src="vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
@@ -134,10 +142,16 @@
         <script src="{{ URL::asset('js/actions.js') }}"></script>
         <script src="{{ URL::asset('js/demo.js') }}"></script>
 
-
-
         <!--Table Coint data Socket-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+
+        <!-- Date libreria de calendario -->
+        <!-- bootstrap datepicker
+             <script src="{{ asset('vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script> -->
+        <script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+
+
+
 
         <!--DataTables-->
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -149,7 +163,18 @@
 
         <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
 
-
+         <!--datatables export to pdf, excel, csv, print-->
+        <script src="{{ URL::asset('js/tables/export/buttons.print.min.js') }}"></script>
+        <script src="{{ URL::asset('js/tables/export/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ URL::asset('js/tables/export/buttons.flash.min.js') }}"></script>
+        <script src="{{ URL::asset('js/tables/export/jszip.min.js') }}"></script>
+        <script src="{{ URL::asset('js/tables/export/pdfmake.min.js') }}"></script>
+        <script src="{{ URL::asset('js/tables/export/vfs_fonts.js') }}"></script>
+        <script src="{{ URL::asset('js/tables/export/buttons.html5.min.js') }}"></script>
+        <script src="{{ URL::asset('js/tables/export/buttons.colVis.min.js') }}"></script>
+        <script src="{{ URL::asset('js/tables/export/date-de.js') }}"></script>
+        <script src="{{ URL::asset('js/tables/export/datetime.js') }}"></script>
+        <script src="{{ URL::asset('js/tables/export/moment-timezone-with-data.js') }}"></script>
 
          <!--Library Input Image-->
         <script src="{{ URL::asset('js/fileinput.min.js') }}"></script>
@@ -159,14 +184,20 @@
 
 
 
+        <!-- Moments Para la fecha actual-->
+        <script src="{{ URL::asset('js/date/moment.js') }}"></script>
+        <script src="{{ URL::asset('js/date/moment-with-locales.min.js') }}"></script>
 
-        
 
+        <!-- Morris.js charts -->
+        <script src="{{ URL::asset('https://www.gstatic.com/charts/loader.js') }}"></script>
+
+        <script src="{{ URL::asset('js/chartjs/highcharts.js') }}"></script>
+        <script src="{{ URL::asset('js/chartjs/series-label.js') }}"></script>
+        <script src="{{ URL::asset('js/chartjs/exporting.js') }}"></script>
     @endguest
 
-    <script src="{{ URL::asset('js/functions.js') }}"></script>
-
-
+        <script src="{{ URL::asset('js/functions.js') }}"></script>
 
     @yield('footer')
 

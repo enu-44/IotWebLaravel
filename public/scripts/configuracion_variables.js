@@ -110,9 +110,7 @@ function getDispositivos(is_change){
                    // $('#proyecto_id').prop('disabled', true).trigger("chosen:updated");
                   }
                 }
-
-               
-
+                
                 getDispositivo();
 
               },

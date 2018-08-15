@@ -176,6 +176,24 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/up_by_id', ['as' => 'unidades_productivas', 'uses' => $controller.'postUnidadesproductivasById']);
 
     Route::post('/dispositivo_by_id', ['as' => 'dispositivos', 'uses' => $controller.'postDispositivoById']);
+
+     Route::post('/variables_config_by_id_dispositivo', ['as' => 'variables', 'uses' => $controller.'postConfVariableByIdExternoDispositivo']);
+}); 
+
+
+
+
+
+//ROUTES GET LIST REPORTS
+/*---------------------------------------------------------------*/
+Route::group(['middleware' => 'auth'], function () {
+   $controller = 'ReportVariablesController@';
+    
+    Route::get('/variables_real_time', ['as' => 'variables_real_time', 'uses' => $controller.'getVariablesRealTime']);
+
+    Route::get('/historial_variables', ['as' => 'historial_variables', 'uses' => $controller.'getHistorialVariables']);
+
+    Route::get('/report_mapa', ['as' => 'report_mapa', 'uses' => $controller.'getMapaVariables']);
 }); 
 
 
