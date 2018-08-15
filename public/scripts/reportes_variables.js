@@ -254,10 +254,10 @@ function getVariablesConfiguradas(dispositivo_id) {
                   var nameevents=data.name_configure;
                   var alias=data.alias_variable;
                   $('#content_variables_real_time').slideDown('slow');
-                  var box= $('<div id="medidasvariables'+data._id+'" class="box"><div class="box-header"><h3 class="box-title">'+alias+'</h3><div class="box-tools"><div class="input-group input-group-sm" style="width: 150px;"><input type="text" name="table_search" class="form-control pull-right" placeholder="Search"><div class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button></div></div></div></div> <div class="box-body table-responsive no-padding"><div id="containerprueba" style=" height: 400px; width: 100%;"></div></div></div>');
+                  var box= $('<div id="medidasvariables'+data.id+'" class="box"><div class="box-header"><h3 class="box-title">'+alias+'</h3><div class="box-tools"><div class="input-group input-group-sm" style="width: 150px;"><input type="text" name="table_search" class="form-control pull-right" placeholder="Search"><div class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button></div></div></div></div> <div class="box-body table-responsive no-padding"><div id="containerprueba" style=" height: 400px; width: 100%;"></div></div></div>');
                   $('#content_variables_real_time').append(box);
                   var oxi;
-                  $('#medidasvariables'+data._id).highcharts({
+                  $('#medidasvariables'+data.id).highcharts({
                       chart: {
                           type: 'spline',
                           animation: Highcharts.svg, // don't animate in old IE
